@@ -49,8 +49,7 @@
                                 //會來後再編輯點插入該圖片，因為回傳是網址只要處理src 即可
                                 $('.summernote').summernote("insertNode", image[0]);
                             };
-
-                            //uploadImage(GetBase64(image[0]));
+        
                         }
                     }
                 }
@@ -61,17 +60,6 @@
             return window.external.UploadImage(image);
         }
 
-
-        function GetBase64(file) {
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            reader.onload = function () {
-                console.log(reader.result);
-            };
-            reader.onerror = function (error) {
-                console.log('Error: ', error);
-            };
-        }
 
 
     </script>
