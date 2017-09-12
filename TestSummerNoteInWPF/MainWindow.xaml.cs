@@ -23,7 +23,6 @@ namespace TestSummerNoteInWPF
     /// <summary>
     /// MainWindow.xaml 的互動邏輯
     /// </summary>
-
     public partial class MainWindow : Window
     {
         public MainWindow()
@@ -55,8 +54,7 @@ namespace TestSummerNoteInWPF
 
 
     }
-
-    //[PermissionSet(SecurityAction.Demand, Name = "FullTrust")]
+    
     [ComVisible(true)]
     public class HtmlAgent
     {
@@ -87,9 +85,8 @@ namespace TestSummerNoteInWPF
 
         public Image Base64ToImage(string base64String)
         {
-            // Convert base 64 string to byte[]
             byte[] imageBytes = Convert.FromBase64String(base64String);
-            // Convert byte[] to Image
+           
             using (var ms = new MemoryStream(imageBytes, 0, imageBytes.Length))
             {
                 Image image = new Image();
@@ -103,23 +100,7 @@ namespace TestSummerNoteInWPF
                 return image;
             }
         }
-
-        private void SaveFile(Stream stream, FileStream fs)
-        {
-            try
-            {
-                byte[] buffer = new byte[4096];
-                int bytesRead;
-                while ((bytesRead = stream.Read(buffer, 0, buffer.Length)) != 0)
-                {
-                    fs.Write(buffer, 0, bytesRead);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("error:" + ex.Message);
-            }
-        }
+        
 
     }
 
