@@ -1,0 +1,63 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <script src="Chart.min.js"></script>
+    <script src="moment.min.js"></script>
+</head>
+<body>
+    <div style="width: 500px;height:500px">
+        <canvas id="canvasLine"></canvas>
+
+    </div>
+
+    <script>
+
+        var yAxis = [];
+        // 資料集合，之後只要更新這個就好了。
+        var datas = [];
+        var ctx = document.getElementById('canvasLine').getContext('2d');
+        var lineChart = new Chart(ctx, {
+            //Type 改成 Bar
+            type: 'bar',
+            data: {
+                labels: yAxis,
+                datasets: [{
+                    label: '測試資料',
+                    data: datas,
+                    backgroundColor: "#0066FF"
+                }]
+            }
+        });
+
+        //時間格式
+        var timeFormat = 'HH:mm:ss';
+
+        function appendData() {
+            //超過10 個，就把最早進來的刪掉
+            if (yAxis.length > 10) {
+                yAxis.shift();
+                datas.shift();
+            }
+
+            //推入y 軸新的資料
+            yAxis.push(new moment().format(timeFormat));
+
+            //推入一筆亂數進資料 10~100
+            datas.push(Math.floor(Math.random() * 100) + 10);
+
+            //更新線圖
+            lineChart.update();
+        }
+
+        //每半秒做一次
+        setInterval(appendData, 500);
+
+
+
+    </script>
+</body>
+</html>

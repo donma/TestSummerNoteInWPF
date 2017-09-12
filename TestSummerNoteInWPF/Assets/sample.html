@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<!-- saved from url=(0014)about:internet -->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- include libraries(jQuery, bootstrap, fontawesome) -->
+    <link href="bootstrap.css" rel="stylesheet">
+    <script src="jquery.js"></script>
+    <script src="bootstrap.js"></script>
+
+
+
+    <!-- include summernote css/js-->
+    <link href="summernote.css" rel="stylesheet">
+    <script src="summernote.js"></script>
+
+
+</head>
+<body>
+    <div class="summernote" id="textEditor1" runat="server"></div>
+    <button type="button" id="btnShow">測試呼叫</button>
+
+
+    <script>
+
+        $('#btnShow').click(function () {
+
+
+            window.external.ShowMessageFromHTML("Hi ! 我來自 html");
+        });
+
+
+        //Init Summernote
+        $(document).ready(function () {
+            $('.summernote').summernote(
+                {
+                    height: 300,
+                    callbacks: {
+                        onImageUpload: function (image) {
+
+
+                            var reader = new FileReader();
+                            var imgfile = reader.readAsDataURL(image[0]);
+                            reader.onload = function () {
+                               
+                               var res= uploadImage(reader.result);
+                               var image = $('<img>').attr('src', res);
+                                //會來後再編輯點插入該圖片，因為回傳是網址只要處理src 即可
+                                $('.summernote').summernote("insertNode", image[0]);
+                            };
+
+                            //uploadImage(GetBase64(image[0]));
+                        }
+                    }
+                }
+            );
+        });
+
+        function uploadImage(image) {
+            return window.external.UploadImage(image);
+        }
+
+
+        function GetBase64(file) {
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            reader.onload = function () {
+                console.log(reader.result);
+            };
+            reader.onerror = function (error) {
+                console.log('Error: ', error);
+            };
+        }
+
+
+    </script>
+</body>
+</html>
